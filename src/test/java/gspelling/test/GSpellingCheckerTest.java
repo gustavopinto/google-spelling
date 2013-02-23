@@ -16,12 +16,13 @@
 package gspelling.test;
 
 import static gspelling.GSpellingLanguage.ENGLISH;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import gspelling.GSpellingChecker;
 import gspelling.Word;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -34,48 +35,51 @@ public class GSpellingCheckerTest {
     @Test
     public void checkWords()
         throws Exception {
-        List<Word> out = null;
-
-        // with errors
-        out = GSpellingChecker.checkWords("Boing is an amaing acraft", ENGLISH);
+        List<Word> out = GSpellingChecker.checkWords("Boeing is an amazing aircraft", ENGLISH);
         System.out.println(out);
-        Assert.assertTrue(out.size() > 0);
+        assertTrue(out.isEmpty());
+    }
 
-        // no errors
-        out = GSpellingChecker.checkWords("Boeing is an amazing aircraft", ENGLISH);
+    @Test
+    public void checkWordsWithErrors()
+        throws Exception {
+        List<Word> out = GSpellingChecker.checkWords("Boing is an amaing acraft", ENGLISH);
         System.out.println(out);
-        Assert.assertTrue(out.size() == 0);
+        assertFalse(out.isEmpty());
     }
 
     @Test
     public void checkBadWords()
         throws Exception {
-        List<String> out = null;
-
-        // one error
-        out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
+        List<String> out = GSpellingChecker.checkBadWords("Boeing aircraft", ENGLISH);
         System.out.println(out);
-        Assert.assertTrue(out.contains("Boing"));
+        assertTrue(out.isEmpty());
+    }
 
-        // no errors
-        out = GSpellingChecker.checkBadWords("Boeing aircraft", ENGLISH);
+    @Test
+    public void checkBadWordsWithErrors()
+        throws Exception {
+        List<String> out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
         System.out.println(out);
-        Assert.assertTrue(out.size() == 0);
+        assertTrue(out.contains("Boing"));
     }
 
     @Test
     public void getSuggestions()
+        throws Exception {
+        List<String> out = GSpellingChecker.checkBadWords("Boeing", ENGLISH);
+        System.out.println(out);
+        assertTrue(out.isEmpty());
+    }
+
+    @Test
+    public void getSuggestionsWithErrors()
         throws Exception {
         List<String> out = null;
 
         // one error
         out = GSpellingChecker.getSuggestions("Boing", ENGLISH);
         System.out.println(out);
-        Assert.assertTrue(out.contains("Boeing"));
-
-        // no errors
-        out = GSpellingChecker.checkBadWords("Boeing", ENGLISH);
-        System.out.println(out);
-        Assert.assertTrue(out.size() == 0);
+        assertTrue(out.contains("Boeing"));
     }
 }
