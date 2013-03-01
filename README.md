@@ -1,4 +1,10 @@
+google-spelling
+===============
+
 This is a simple API to use Google Spelling service. There are no external dependencies and the code is compatible with Java 6+. If you want to use Java 5, you need to place JAXB jars in your classpath.
+
+Usage
+-----
 
 There are three ways to use the Google Spell Service:
 
@@ -10,11 +16,12 @@ There are three ways to use the Google Spell Service:
 <pre><code>List<String> out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
 // returns [Boing]</code></pre>
 
-1) Searching into text and returns a list of suggestions for one or more words.
+3) Searching into text and returns a list of suggestions for one or more words.
 <pre><code>List<String> out = GSpellingChecker.getSuggestions("Boing", ENGLISH);
 // returns [Boeing, Booing, Bing, Being, Binge]</code></pre>
 
-*To use through a proxy server*
+To use through a proxy server
+-----------------------------
 
 To use this API through a proxy server you can pass these parameters in the JVM initialization:
 
