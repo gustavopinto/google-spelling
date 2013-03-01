@@ -15,7 +15,6 @@
  */
 package gspelling;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class Word {
 
     public Word(String value) {
         this.value = value;
-        this.suggestions = Collections.unmodifiableList(new ArrayList<Word>());
+        this.suggestions = Collections.emptyList();
     }
 
     public Word(String value, List<Word> suggestions) {
