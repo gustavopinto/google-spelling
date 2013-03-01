@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -135,7 +134,7 @@ public final class GSpellingChecker {
         InputStream in = null;
 
         try {
-            final URL url = new URL(String.format(SERVICE_URL, lang));
+            final URL url = new URL(String.format(SERVICE_URL, lang.code()));
             final URLConnection conn = url.openConnection();
             conn.setDoOutput(true);
 

@@ -16,7 +16,10 @@
 package gspelling.test;
 
 import static gspelling.GSpellingLanguage.ENGLISH;
-import static org.junit.Assert.*;
+import static gspelling.GSpellingLanguage.PORTUGUESE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import gspelling.GSpellingChecker;
 import gspelling.Word;
 
@@ -47,6 +50,14 @@ public class GSpellingCheckerTest {
         assertFalse(out.isEmpty());
     }
 
+    @Test
+    public void checkWordsWithErrorsPt()
+        throws Exception {
+        List<Word> out = GSpellingChecker.checkWords("Boing é uma aeronave incrivel ", PORTUGUESE);
+        System.out.println(out);
+        assertFalse(out.isEmpty());
+    }
+    
     @Test
     public void checkBadWords()
         throws Exception {
