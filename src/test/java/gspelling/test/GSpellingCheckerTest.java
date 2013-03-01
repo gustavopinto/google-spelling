@@ -16,8 +16,7 @@
 package gspelling.test;
 
 import static gspelling.GSpellingLanguage.ENGLISH;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import gspelling.GSpellingChecker;
 import gspelling.Word;
 
@@ -51,7 +50,7 @@ public class GSpellingCheckerTest {
     @Test
     public void checkBadWords()
         throws Exception {
-        List<String> out = GSpellingChecker.checkBadWords("Boeing aircraft", ENGLISH);
+        List<Word> out = GSpellingChecker.checkBadWords("Boeing aircraft", ENGLISH);
         System.out.println(out);
         assertTrue(out.isEmpty());
     }
@@ -59,15 +58,15 @@ public class GSpellingCheckerTest {
     @Test
     public void checkBadWordsWithErrors()
         throws Exception {
-        List<String> out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
+        List<Word> out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
         System.out.println(out);
-        assertTrue(out.contains("Boing"));
+        assertEquals("Boing", out.get(0).getValue());
     }
 
     @Test
     public void getSuggestions()
         throws Exception {
-        List<String> out = GSpellingChecker.checkBadWords("Boeing", ENGLISH);
+        List<Word> out = GSpellingChecker.checkBadWords("Boeing", ENGLISH);
         System.out.println(out);
         assertTrue(out.isEmpty());
     }
@@ -75,11 +74,11 @@ public class GSpellingCheckerTest {
     @Test
     public void getSuggestionsWithErrors()
         throws Exception {
-        List<String> out = null;
+        List<Word> out = null;
 
         // one error
         out = GSpellingChecker.getSuggestions("Boing", ENGLISH);
         System.out.println(out);
-        assertTrue(out.contains("Boeing"));
+        assertEquals("Boeing", out.get(0).getValue());
     }
 }

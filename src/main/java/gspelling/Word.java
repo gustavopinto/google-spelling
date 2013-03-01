@@ -15,6 +15,7 @@
  */
 package gspelling;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,24 +28,30 @@ public class Word {
 
     private String value;
 
-    private List<String> suggestions;
+    private List<Word> suggestions;
 
-    public Word(String value, List<String> suggestions) {
+    public Word(String value) {
+        this.value = value;
+        this.suggestions = Collections.unmodifiableList(new ArrayList<Word>());
+    }
+
+    public Word(String value, List<Word> suggestions) {
         this.value = value;
         this.suggestions = Collections.unmodifiableList(suggestions);
     }
 
+    
     public String getValue() {
         return value;
     }
 
-    public List<String> getSuggestions() {
+    public List<Word> getSuggestions() {
         return suggestions;
     }
 
     @Override
     public String toString() {
-        return value + "=" + suggestions;
+        return value + (suggestions.isEmpty() ? "" : "=" + suggestions);
     }
 
 }

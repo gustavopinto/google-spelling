@@ -54,13 +54,14 @@ public final class GSpellingChecker {
      * @return The list of bad words in the input text or empty list if has no spelling errors.
      * @throws GSpellingException If an error occurs.
      */
-    public static List<String> checkBadWords(String text, GSpellingLanguage lang)
+    public static List<Word> checkBadWords(String text, GSpellingLanguage lang)
         throws GSpellingException {
-        final List<String> out = new LinkedList<String>();
+        final List<Word> out = new LinkedList<Word>();
 
         XmlResponse response = doSpelling(text, lang);
         for (XmlResponseItem item : response.getItems()) {
-            out.add(text.substring(item.getOffset(), item.getOffset() + item.getLength()));
+        	String word = text.substring(item.getOffset(), item.getOffset() + item.getLength());
+            out.add(new Word(word));
         }
 
         return out;
@@ -74,14 +75,16 @@ public final class GSpellingChecker {
      * @return The list of suggestions for the input word(s).
      * @throws GSpellingException If an error occurs.
      */
-    public static List<String> getSuggestions(String word, GSpellingLanguage lang)
+    public static List<Word> getSuggestions(String word, GSpellingLanguage lang)
         throws GSpellingException {
-        final List<String> out = new LinkedList<String>();
+        final List<Word> out = new LinkedList<Word>();
 
         XmlResponse response = doSpelling(word, lang);
         for (XmlResponseItem item : response.getItems()) {
-            String[] items = item.getText().split("\\t");
-            out.addAll(Arrays.asList(items));
+            String[] words = item.getText().split("\\t");
+            for (String w : words) {
+				out.add(new Word(w));
+			}
         }
 
         return out;
@@ -102,9 +105,15 @@ public final class GSpellingChecker {
         XmlResponse response = doSpelling(text, lang);
         for (XmlResponseItem item : response.getItems()) {
             String key = text.substring(item.getOffset(), item.getOffset() + item.getLength());
-            String[] suggestions = item.getText().split("\\t");
+            String[] words = item.getText().split("\\t");
 
-            out.add(new Word(key, Arrays.asList(suggestions)));
+            List<Word> suggestions = new LinkedList<Word>();
+            
+            for (String word: words) {
+				suggestions.add(new Word(word));
+			}
+            
+            out.add(new Word(key, suggestions));
         }
 
         return out;

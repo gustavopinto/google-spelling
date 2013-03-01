@@ -13,11 +13,11 @@ There are three ways to use the Google Spell Service:
 // returns [Boing=[Boeing, Booing, Bing...], amaing=[aiming, arming, amazing, ...]</code></pre>
 
 2) Searching into text to find spelling errors, and return the bad words.
-<pre><code>List<String> out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
+<pre><code>List<Word> out = GSpellingChecker.checkBadWords("Boing aircraft", ENGLISH);
 // returns [Boing]</code></pre>
 
 3) Searching into text and returns a list of suggestions for one or more words.
-<pre><code>List<String> out = GSpellingChecker.getSuggestions("Boing", ENGLISH);
+<pre><code>List<Word> out = GSpellingChecker.getSuggestions("Boing", ENGLISH);
 // returns [Boeing, Booing, Bing, Being, Binge]</code></pre>
 
 To use through a proxy server
